@@ -1,6 +1,7 @@
 import Buyable from '../domain/Buyable';
 
 export default class Cart {
+    
     private _items: Buyable[] = [];
 
     add(item: Buyable): void {
@@ -12,15 +13,11 @@ export default class Cart {
     }
 
     sumWithoutSale(): number {
-        let sum: number = 0;
-        for(let card of this._items){
-            sum += card.price;
-        }
-        return sum;
+        return this._items.reduce((price, item) => price + item.price, 0);
     }
 
     sumWithSale(sale: number): number {
-        let sum = this.sumWithoutSale();
+         let sum = this.sumWithoutSale();
         return sum - ( (sum / 100) * sale );
     }
 
